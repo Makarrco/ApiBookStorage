@@ -1,0 +1,105 @@
+﻿<Window x:Class="GutenbergApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Бібліотека Гутенберга" Height="700" Width="1100"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <GroupBox Header="Завдання 1" Padding="5">
+                    <Button x:Name="btnHamlet" Content="Завантажити «Гамлета»"
+                            Height="28" Click="Hamlet_Click"/>
+                </GroupBox>
+
+                <GroupBox Header="Завдання 2, 4" Padding="5" Margin="0,5,0,0">
+                    <Button x:Name="btnTop" Content="100 найпопулярніших книжок"
+                            Height="28" Click="Top_Click"/>
+                </GroupBox>
+
+                <GroupBox Header="Завдання 3 — пошук" Padding="5" Margin="0,5,0,0">
+                    <DockPanel>
+                        <Button x:Name="btnSearch" Content="Знайти" Width="80"
+                                DockPanel.Dock="Right" Margin="5,0,0,0" Click="Search_Click"/>
+                        <TextBox x:Name="txtSearch" Height="28" VerticalContentAlignment="Center"
+                                 KeyDown="TxtSearch_KeyDown"/>
+                    </DockPanel>
+                </GroupBox>
+
+                <GroupBox Header="Завдання 5 — книжки автора" Padding="5" Margin="0,5,0,0">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Прізвище (напр. Shakespeare)"/>
+                                <TextBox x:Name="txtLastName" Height="26" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Ім'я (напр. William)"/>
+                                <TextBox x:Name="txtFirstName" Height="26" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <Button x:Name="btnAuthor" Content="Завантажити всі книжки автора"
+                                Height="28" Margin="0,5,0,0" Click="Author_Click"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+            <ListBox x:Name="lstBooks" Grid.Row="1" Margin="0,8,0,0"
+                     SelectionChanged="LstBooks_SelectionChanged"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     VirtualizingPanel.IsVirtualizing="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="2">
+                            <Image Source="{Binding CoverUrl}" Width="45" Height="65"
+                                   Stretch="Uniform" Margin="0,0,8,0"/>
+                            <StackPanel Width="280" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding AuthorsText}" Foreground="Gray"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Image x:Name="imgCover" Grid.Row="0" Height="180"
+                   HorizontalAlignment="Left" Stretch="Uniform"/>
+
+            <TextBlock x:Name="txtStatus" Grid.Row="1" Margin="0,5"
+                       FontStyle="Italic" Text="Готово."/>
+
+            <TextBox x:Name="txtContent" Grid.Row="2"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     FontFamily="Consolas" FontSize="13"
+                     VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+    </Grid>
+</Window>
